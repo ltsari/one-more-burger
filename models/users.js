@@ -19,7 +19,6 @@ const User = new mongoose.model("User",UserSchema);
 module.exports = User;
 
 module.exports.register = (data,callback)=>{
-    let newUser = new User(data);
     bcrypt.hash(data.password,salt,(err,hash)=>{
         if (err) return callback(err);
         else {
@@ -27,6 +26,20 @@ module.exports.register = (data,callback)=>{
             userData.password = hash;
             let newUser = new User(userData);
             newUser.save(callback)
+        }
+    })
+}
+
+module.exports.login = (data,callback)=>{
+    User.findOne({email:data.email},(err,user)=>{
+        if(err) return callback(err,null);
+        if(!user) return callback(null,null);
+        if(user){
+            bcrypt.compare(data.password, user.password,(err,result)=>{
+                if (err) return callback (err,null);
+                if (result==true) return callback (null,user);
+                if (result==false) return callback (null,null);
+            })
         }
     })
 }

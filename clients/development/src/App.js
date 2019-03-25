@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 //import page
 import RegistrationPage from "./views/common/register";
-
+import LoginPage from "./views/common/login";
+import AdminPage from "./views/administrator";
 
 class App extends Component {
   render() {
@@ -13,6 +14,8 @@ class App extends Component {
           <Router>
             <Switch>
               <Route path="/register" component={RegistrationPage}/>
+              <Route path="/login" component={LoginPage}/>
+              <Route path="/admin" component={AdminPage}/>
             </Switch>
           </Router>
       </div>

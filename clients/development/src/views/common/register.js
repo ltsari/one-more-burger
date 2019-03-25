@@ -1,11 +1,13 @@
 import React from "react";
 import axios from 'axios';
-
+import './style.css';
+import {Redirect} from "react-router";
 
 class RegistrationPage extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            toLoginPage:false,
             form:{
                 email:"",
                 username:"",
@@ -31,20 +33,23 @@ class RegistrationPage extends React.Component{
         axios({
             method:"POST",
             url:"http://localhost:8000/api/register",
-            data:""
+            data:_form
         })
         .then(res=>{
-            console.log(res);
+            this.setState({toLoginPage:true})
         })
         .catch(err=>{
             console.log(err)
         })
     }
 
-
+register
     render(){
+        if(this.state.toLoginPage == true){
+            return <Redirect to = "/login"/>
+        }
         return(
-            <div>
+            <div className = "header">
                 <form>
                     <input value = {this.state.form.email} placeholder="email" onChange = {e=>this.handleChange(e,"email")}></input>
                     <input value = {this.state.form.username} placeholder="username" onChange = {e=>this.handleChange(e,"username")}></input>
@@ -53,7 +58,7 @@ class RegistrationPage extends React.Component{
                     <input value = {this.state.form.last_name} placeholder="last_name" onChange = {e=>this.handleChange(e,"last_name")}></input>
                     <input value = {this.state.form.address} placeholder="address" onChange = {e=>this.handleChange(e,"address")}></input>
                     <button className = "btn btn-link" onClick = {e=>this.RegisterHandler(e)}>Register</button>
-                    <button className = "btn btn-primary">Cencel</button>
+                    <button className = "btn btn-primary" onClick = {e=>this.setState({toLogiPage:true})}>Already have an account</button>
                 </form>
             </div>
         )
