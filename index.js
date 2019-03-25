@@ -17,6 +17,7 @@ mongoose.connect(DB.dev, {useNewUrlParser:true})
 
 //models
 const User = require("./models/Users");             
+const Product = require("./models/product");
 
 
 
@@ -38,8 +39,23 @@ app.post("/api/register", (req,res)=>{
 app.post("/api/login",(req,res)=>{
     User.login(req.body,(err,user)=>{
         if(err) return res.status(500).send(err);
-        if(!user) return res.status(401).send({statu:"failed"});
+        if(!user) return res.status(401).send({status:"failed"});
         return res.status(200).send(user);
+    })
+})
+
+//function for creating products
+app.post("/api/create_product",(req,res)=>{
+    Product.add(req.body,(err)=>{
+        if (err) return res.status(500).send(err);
+        else return res.status(200).send({status:"success"});
+    })
+});
+//to get all products
+app.get("/api/all_products", (req,res)=>{
+    Product.getAll((err,products)=>{
+        if (err) return res.status(500).send(err);
+        else return res.status(200).send(products);
     })
 })
 
