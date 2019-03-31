@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import RegistrationPage from "./views/common/register";
 import LoginPage from "./views/common/login";
 import AdminPage from "./views/administrator";
+import BuyerPage from "./views/buyer";
 
 class App extends Component {
   render() {
@@ -16,11 +17,13 @@ class App extends Component {
               <Route path="/register" component={RegistrationPage}/>
               <Route path="/login" component={LoginPage}/>
               <Route path="/admin" component={AdminPage}/>
+              <Route path="/buyer" component={BuyerPage}/>
             </Switch>
           </Router>
       </div>
     );
   }
 }
+
 
 export default App;

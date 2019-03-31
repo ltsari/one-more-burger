@@ -20,7 +20,7 @@ class newProductModal extends React.Component{
         _form[type] = e.target.value;
         this.setState({form:_form});
     }
-
+    
     createProduct(){
         let _form = this.state.form;
         axios({
@@ -30,6 +30,7 @@ class newProductModal extends React.Component{
         })
         .then(res=>{
             this.props.toggle()
+            this.props.getList()
         })
         .catch(err=>{
 

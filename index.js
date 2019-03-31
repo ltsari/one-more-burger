@@ -51,6 +51,22 @@ app.post("/api/create_product",(req,res)=>{
         else return res.status(200).send({status:"success"});
     })
 });
+
+//update
+app.post("/api/update_product",(req,res)=>{
+    Product.updateOne(req.body,(err)=>{
+        if (err) return res.status(500).send(err);
+        else return res.status(200).send({status:"success"});
+    })
+});
+//delete
+app.post("/api/delete_product",(req,res)=>{
+    Product.deleteOneProduct(req.body,(err)=>{
+        if (err) return res.status(500).send(err);
+        else return res.status(200).send({status:"success"});
+    })
+});
+
 //to get all products
 app.get("/api/all_products", (req,res)=>{
     Product.getAll((err,products)=>{
